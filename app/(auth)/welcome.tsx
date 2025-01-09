@@ -1,3 +1,4 @@
+import { onBoarding } from '@/constants'
 import { router } from 'expo-router'
 import { useRef, useState } from 'react'
 import {  Text, TouchableOpacity, View } from 'react-native'
@@ -26,11 +27,13 @@ const Onboarding = () => {
       activeDot={<View className='w-[32px] h-[4px] mx-1 bg-[#0286FF] rounded-full' />}
       onIndexChanged={(index) => setActiveIndex(index)}
       >
-        [
-          {
-            
-          }
-        ]
+        {
+          onBoarding.map((item) => (
+            <View>
+              <Text>{item.title}</Text>
+              </View>
+          ))
+        }
       </Swiper>
     </SafeAreaView>
   )
