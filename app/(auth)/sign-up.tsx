@@ -1,3 +1,4 @@
+import InputField from '@/components/InputField'
 import { images } from '@/constants'
 import {  Image, ScrollView, Text, View } from 'react-native'
 
@@ -12,7 +13,7 @@ const SignUp = () => {
           </Text>
         </View>
         <View className='p-5 '>
-          <inputField/>
+          <InputField/>
         </View>
       </View>
     </ScrollView>
