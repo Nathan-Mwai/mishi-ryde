@@ -1,4 +1,4 @@
-import { onBoarding } from '@/constants'
+import { onboarding } from '@/constants'
 import { router } from 'expo-router'
 import { useRef, useState } from 'react'
 import {  Text, TouchableOpacity, View } from 'react-native'
@@ -28,10 +28,10 @@ const Onboarding = () => {
       onIndexChanged={(index) => setActiveIndex(index)}
       >
         {
-          onBoarding.map((item) => (
+          onboarding.map((item) => (
             <View>
               <Text>{item.title}</Text>
-              </View>
+            </View>
           ))
         }
       </Swiper>
