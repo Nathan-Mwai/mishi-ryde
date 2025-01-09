@@ -1,4 +1,20 @@
+import { ButtonProps } from "@/types/type";
 import { Text, TouchableOpacity } from "react-native";
+
+const getBgVariantStyle = (variant: ButtonProps["bgVariant"]) => {
+  switch (variant) {
+    case "secondary":
+      return "bg-gray-500";
+    case "danger":
+      return "bg-red-500";
+    case "success":
+      return "bg-gray-500";
+    case "outline":
+      return "bg-transparent border-neutral-300 border-[0.5px]";
+    default:
+      return "bg-[#0286FF]";
+  }
+};
 
 const CustomButton = ({
   onPress,
@@ -9,10 +25,15 @@ const CustomButton = ({
   IconRight,
   className,
   ...props
-}) => <TouchableOpacity onPress={onPress}>
-    {IconLeft && <IconLeft/>}
+}) => (
+  <TouchableOpacity
+    onPress={onPress}
+    className={` w-full rounded-full flex flex-row justify-center items-center shadow-md shadow-neutral-400/70 ${getBgVariantStyle(bgVariant)} ${className}`}
+  >
+    {IconLeft && <IconLeft />}
     <Text>{title}</Text>
-    {IconRight && <IconRight/>}
-</TouchableOpacity>;
+    {IconRight && <IconRight />}
+  </TouchableOpacity>
+);
 
 export default CustomButton;
