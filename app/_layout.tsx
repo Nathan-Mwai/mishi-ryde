@@ -33,6 +33,8 @@ export default function RootLayout() {
       <Stack>
         {/* Where I set up the first screen */}
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(root)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
   );
