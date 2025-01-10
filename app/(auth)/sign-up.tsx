@@ -2,18 +2,86 @@ import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
 import OAuth from "@/components/OAuth";
 import { icons, images } from "@/constants";
+import { useSignUp } from "@clerk/clerk-expo";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 
 const SignUp = () => {
+  const { isLoaded, signUp, setActive } = useSignUp();
+
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const onSignUpPress = async () => {};
+  const [verification, setVerification] = useState({
+    state: "default",
+    error: "",
+    code: "",
+  });
+
+  // Handle submission of sign-up form
+  const onSignUpPress = async () => {
+    if (!isLoaded) return;
+
+    // Start sign-up process using email and password provided
+    try {
+      await signUp.create({
+        emailAddress: form.email,
+        password: form.password,
+      });
+
+      // Send user an email with verification code
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+
+      // Set 'pendingVerification' to true to display second form
+      // and capture OTP code
+      setVerification({
+        ...verification,
+        state: "pending",
+      });
+    } catch (err) {
+      // See https://clerk.com/docs/custom-flows/error-handling
+      // for more info on error handling
+      console.error(JSON.stringify(err, null, 2));
+    }
+  };
+
+  // Handle submission of verification form
+  const onVerifyPress = async () => {
+    if (!isLoaded) return;
+
+    try {
+      // Use the code the user provided to attempt verification
+      const signUpAttempt = await signUp.attemptEmailAddressVerification({
+        code: verification.code,
+      });
+
+      // If verification was completed, set the session to active
+      // and redirect the user
+      if (signUpAttempt.status === "complete") {
+        // TODO: CREATE A DATABASE USER!
+        await setActive({ session: signUpAttempt.createdSessionId });
+        setVerification({ ...verification, state: "success" });
+      } else {
+        // If the status is not complete, check why. User may need to
+        // complete further steps.
+        setVerification({
+          ...verification,
+          error: "Verification failed",
+          state: "failed",
+        });
+      }
+    } catch (err: any) {
+      setVerification({
+        ...verification,
+        error: err.errors[0].longMessage,
+        state: "failed",
+      });
+    }
+  };
 
   return (
     <ScrollView className="flex-1 bg-white">
@@ -68,7 +136,7 @@ const SignUp = () => {
             className="mt-6"
           />
 
-          <OAuth/>
+          <OAuth />
 
           <Link
             href="/sign-in"
@@ -81,6 +149,7 @@ const SignUp = () => {
 
         {/* Verification Modal */}
 
+        
       </View>
     </ScrollView>
   );
