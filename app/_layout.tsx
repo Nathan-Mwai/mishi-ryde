@@ -43,7 +43,9 @@ export default function RootLayout() {
   }
 
   return (
-    <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
+    <ClerkProvider
+      // tokenCache={tokenCache}
+      publishableKey={publishableKey}>
       <ClerkLoaded>
         <Stack>
           {/* Where I set up the first screen */}
