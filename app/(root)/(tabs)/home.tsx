@@ -1,10 +1,18 @@
 import RideCard from "@/components/RideCard";
 import { icons, images } from "@/constants";
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
-import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import GoogleTextInput from "@/components/GoogleTextInput";
+import Map from "@/components/Map";
 
 const recentRides = [
   {
@@ -117,8 +125,8 @@ export default function Page() {
   const { user } = useUser();
   const loading = false;
 
-  const handleSignOut= ()=> {}
-  const handleDestinationPress = () => {}
+  const handleSignOut = () => {};
+  const handleDestinationPress = () => {};
 
   return (
     <SafeAreaView className="bg-general-500">
@@ -147,32 +155,41 @@ export default function Page() {
             )}
           </View>
         )}
-        ListHeaderComponent={()=> (
+        ListHeaderComponent={() => (
           <>
-          <View className="flex flex-row items-center justify-between my-5">
-            <Text className="text-2xl font-JakartaExtraBold capitalize">
-              Welcome, {user?.firstName || user?.emailAddresses[0].emailAddress.split('@')[0]} 👋
-            </Text>
-            <TouchableOpacity onPress={handleSignOut} className="justify-center items-center w-10 h-10 rounded-full bg-white">
-              <Image source={icons.out} className="h-4 w-4"/>
-            </TouchableOpacity>
-          </View>
-          {/* search area */}
-          <GoogleTextInput
-            icon = {icons.search}
-            containerStyle="bg-white shadow-md shadow-neutral-300"
-            handlePress={handleDestinationPress}
-          />
+            <View className="flex flex-row items-center justify-between my-5">
+              <Text className="text-2xl font-JakartaExtraBold capitalize">
+                Welcome,{" "}
+                {user?.firstName ||
+                  user?.emailAddresses[0].emailAddress.split("@")[0]}{" "}
+                👋
+              </Text>
+              <TouchableOpacity
+                onPress={handleSignOut}
+                className="justify-center items-center w-10 h-10 rounded-full bg-white"
+              >
+                <Image source={icons.out} className="h-4 w-4" />
+              </TouchableOpacity>
+            </View>
+            {/* search area */}
+            <GoogleTextInput
+              icon={icons.search}
+              containerStyle="bg-white shadow-md shadow-neutral-300"
+              handlePress={handleDestinationPress}
+            />
+            {/* For the map */}
+            <>
+              <Text className="text-xl font-JakartaBold mt-5 mb-3">
+                Your Current Location
+              </Text>
+              <View className="flex flex-row items-center bg-transparent h-[300px]">
+                <Map />
+              </View>
+            </>
 
-          <>
-          <Text className="text-xl font-JakartaBold mt-5 mb-3">
-            Your Current Location
-          </Text>
-          <View className="flex flex-row items-center bg-transparent h-[300px]">
-            
-          </View>
-          </>
-
+            <Text className="text-xl font-JakartaBold mt-5 mb-3">
+                Recent Rides
+              </Text>
           </>
         )}
       />
