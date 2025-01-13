@@ -113,12 +113,24 @@ const recentRides = [
 
 export default function Page() {
   const { user } = useUser();
+  const l
 
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
-        data={recentRides?.slice(0, 5)}
+        // data={recentRides?.slice(0, 5)}
+        data={[]}
         renderItem={({ item }) => <RideCard ride={item} />}
+        className="px-5"
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{
+          paddingBottom:100,
+        }}
+        ListEmptyComponent={()=> (
+          <View className="flex flex-col items-center justify-center">
+            <Text>EMPTY</Text>
+          </View>
+        )}
       />
     </SafeAreaView>
   );
