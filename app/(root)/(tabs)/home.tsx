@@ -1,7 +1,7 @@
 import RideCard from "@/components/RideCard";
 import { images } from "@/constants";
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
-import { FlatList, Image, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 
@@ -119,8 +119,7 @@ export default function Page() {
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
-        // data={recentRides?.slice(0, 5)}
-        data={[]}
+        data={recentRides?.slice(0, 5)}
         renderItem={({ item }) => <RideCard ride={item} />}
         className="px-5"
         keyboardShouldPersistTaps="handled"
@@ -140,7 +139,7 @@ export default function Page() {
                 <Text className="text-sm">No recent rides found</Text>
               </>
             ) : (
-              <Text>Loading</Text>
+              <ActivityIndicator size="small" color="#000" />
             )}
           </View>
         )}
