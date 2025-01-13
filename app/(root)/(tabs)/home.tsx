@@ -4,6 +4,7 @@ import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
 import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
+import GoogleTextInput from "@/components/GoogleTextInput";
 
 const recentRides = [
   {
@@ -117,6 +118,7 @@ export default function Page() {
   const loading = false;
 
   const handleSignOut= ()=> {}
+  const handleDestinationPress = () => {}
 
   return (
     <SafeAreaView className="bg-general-500">
@@ -155,6 +157,11 @@ export default function Page() {
               <Image source={icons.out} className="h-4 w-4"/>
             </TouchableOpacity>
           </View>
+          <GoogleTextInput
+            icon = {icons.search}
+            containerStyle="bg-white shadow-md shadow-neutral-300"
+            handlePress={handleDestinationPress}
+          />
           </>
         )}
       />
