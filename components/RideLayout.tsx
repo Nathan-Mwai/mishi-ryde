@@ -3,6 +3,8 @@ import { router } from "expo-router";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Map from "./Map";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import { useRef } from "react";
 
 const RideLayout = ({
   title,
@@ -11,6 +13,8 @@ const RideLayout = ({
   children: React.ReactNode;
   title: string;
 }) => {
+  const bottomSheetRef = useRef<BottomSheet>();
+
   return (
     // Allows swiping of screen and show something underneath it
     <GestureHandlerRootView>
@@ -26,12 +30,19 @@ const RideLayout = ({
                 />
               </View>
             </TouchableOpacity>
-            <Text className="text-xl font-JakartaSemiBold ml-5">{title || "Go Back"}</Text>
+            <Text className="text-xl font-JakartaSemiBold ml-5">
+              {title || "Go Back"}
+            </Text>
           </View>
           <Map />
         </View>
+        {/* Making the bottom sheet like for swiping up for uber */}
+        <BottomSheet ref={bottomSheetRef} snapPoints={["50%", "85%"]} index={0}>
+          <BottomSheetScrollView style={{ flex: 1, padding: 20 }}>
+            {children}
+          </BottomSheetScrollView>
+        </BottomSheet>
       </View>
-      {/* {children} */}
     </GestureHandlerRootView>
   );
 };
