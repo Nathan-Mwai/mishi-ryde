@@ -88,7 +88,7 @@ const Map = () => {
 
   return (
     <MapView
-      provider={PROVIDER_DEFAULT}
+      provider={PROVIDER_GOOGLE}
       className="w-full h-full rounded-2xl"
       tintColor="black"
       mapType="mutedStandard"

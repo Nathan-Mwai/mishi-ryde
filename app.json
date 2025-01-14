@@ -7,6 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "android.config.googleMaps.apiKey":"AIzaSyAU8RqrWWYURMjG0GXjWY1btc7l6LHtBnc",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
