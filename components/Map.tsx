@@ -55,49 +55,49 @@ const drivers = [
 ];
 
 const Map = () => {
-  // const {
-  //   userLongitude,
-  //   userLatitude,
-  //   destinationLatitude,
-  //   destinationLongitude,
-  // } = useLocationStore();
+  const {
+    userLongitude,
+    userLatitude,
+    destinationLatitude,
+    destinationLongitude,
+  } = useLocationStore();
 
-  // const { selectedDriver, setDrivers } = useDriverStore();
+  const { selectedDriver, setDrivers } = useDriverStore();
 
-  // const [markers, setMarkers] = useState<MarkerData[]>([]);
+  const [markers, setMarkers] = useState<MarkerData[]>([]);
 
-  // const region = calculateRegion({
-  //   userLatitude,
-  //   userLongitude,
-  //   destinationLatitude,
-  //   destinationLongitude,
-  // });
+  const region = calculateRegion({
+    userLatitude,
+    userLongitude,
+    destinationLatitude,
+    destinationLongitude,
+  });
 
-  // useEffect(() => {
-  //   if (Array.isArray(drivers)) {
-  //     if (!userLatitude || !userLongitude) return;
+  useEffect(() => {
+    if (Array.isArray(drivers)) {
+      if (!userLatitude || !userLongitude) return;
 
-  //     const newMarkers = generateMarkersFromData({
-  //       data: drivers,
-  //       userLatitude,
-  //       userLongitude,
-  //     });
-  //     setMarkers(newMarkers);
-  //   }
-  // }, [drivers]);
+      const newMarkers = generateMarkersFromData({
+        data: drivers,
+        userLatitude,
+        userLongitude,
+      });
+      setMarkers(newMarkers);
+    }
+  }, [drivers]);
 
   return (
     <MapView
       provider={PROVIDER_DEFAULT}
       className="w-full h-full rounded-2xl"
-      // tintColor="black"
-      // mapType="mutedStandard"
-      // showsPointsOfInterest={false}
-      // initialRegion={region}
-      // showsUserLocation={true}
-      // userInterfaceStyle="light"
+      tintColor="black"
+      mapType="mutedStandard"
+      showsPointsOfInterest={false}
+      initialRegion={region}
+      showsUserLocation={true}
+      userInterfaceStyle="light"
     >
-      {/* {markers.map((marker) => (
+      {markers.map((marker) => (
         <Marker
           key={marker.id}
           coordinate={{
@@ -109,7 +109,7 @@ const Map = () => {
             selectedDriver === marker.id ? icons.selectedMarker : icons.marker
           }
         />
-      ))} */}
+      ))}
       <Text>MAP</Text>
     </MapView>
   );
