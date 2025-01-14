@@ -3,15 +3,18 @@ import { router } from "expo-router";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Map from "./Map";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
 
 const RideLayout = ({
   title,
   children,
+  snapPoints,
 }: {
   children: React.ReactNode;
   title: string;
+  snapPoints?:string[]
+
 }) => {
   const bottomSheetRef = useRef<BottomSheet>();
 
@@ -37,10 +40,16 @@ const RideLayout = ({
           <Map />
         </View>
         {/* Making the bottom sheet like for swiping up for uber */}
-        <BottomSheet ref={bottomSheetRef} snapPoints={["50%", "85%"]} index={0}>
-          <BottomSheetScrollView style={{ flex: 1, padding: 20 }}>
+        <BottomSheet
+        //   keyboardBehavior="fillParent"
+          ref={bottomSheetRef}
+          snapPoints={snapPoints || ["50%", "85%"]}
+          index={0}
+        >
+          {/* BottomSheetScrollView is used for scrolling but this(BottomSheetView) is fixed and always starts from the 40% */}
+          <BottomSheetView style={{ flex: 1, padding: 20 }}>
             {children}
-          </BottomSheetScrollView>
+          </BottomSheetView>
         </BottomSheet>
       </View>
     </GestureHandlerRootView>

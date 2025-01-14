@@ -5,6 +5,7 @@ import RideLayout from "@/components/RideLayout";
 import GoogleTextInput from "@/components/GoogleTextInput";
 import { icons } from "@/constants";
 import CustomButton from "@/components/CustomButton";
+import { router } from "expo-router";
 
 const FindRide = () => {
   const {
@@ -15,7 +16,7 @@ const FindRide = () => {
   } = useLocationStore();
 
   return (
-    <RideLayout title="Ride">
+    <RideLayout title="Ride" snapPoints={["85%"]}>
       <View className="my-3">
         <Text className="text-lg font-JakartaSemiBold mb-3">From</Text>
         <GoogleTextInput
